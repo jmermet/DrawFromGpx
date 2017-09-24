@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?><gpx creator="Garmin Desktop App" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/WaypointExtension/v1 http://www8.garmin.com/xmlschemas/WaypointExtensionv1.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/ActivityExtension/v1 http://www8.garmin.com/xmlschemas/ActivityExtensionv1.xsd http://www.garmin.com/xmlschemas/AdventuresExtensions/v1 http://www8.garmin.com/xmlschemas/AdventuresExtensionv1.xsd http://www.garmin.com/xmlschemas/PressureExtension/v1 http://www.garmin.com/xmlschemas/PressureExtensionv1.xsd http://www.garmin.com/xmlschemas/TripExtensions/v1 http://www.garmin.com/xmlschemas/TripExtensionsv1.xsd http://www.garmin.com/xmlschemas/TripMetaDataExtensions/v1 http://www.garmin.com/xmlschemas/TripMetaDataExtensionsv1.xsd http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensions/v1 http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensionsv1.xsd http://www.garmin.com/xmlschemas/CreationTimeExtensions/v1 http://www.garmin.com/xmlschemas/CreationTimeExtensionsv1.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxtrx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:trp="http://www.garmin.com/xmlschemas/TripExtensions/v1" xmlns:adv="http://www.garmin.com/xmlschemas/AdventuresExtensions/v1" xmlns:prs="http://www.garmin.com/xmlschemas/PressureExtension/v1" xmlns:tmd="http://www.garmin.com/xmlschemas/TripMetaDataExtensions/v1" xmlns:vptm="http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensions/v1" xmlns:ctx="http://www.garmin.com/xmlschemas/CreationTimeExtension/v1">
+
+  <metadata>
+    <link href="http://www.garmin.com">
+      <text>Garmin International</text>
+    </link>
+    <time>2017-08-28T20:13:49Z</time>
+    <bounds maxlat="45.958042060956359" maxlon="5.3690005838871" minlat="45.94928489997983" minlon="5.350191593170166" />
+  </metadata>
+
+  <wpt lat="45.949625121429563" lon="5.368585679680109">
+    <time>2016-08-09T21:03:53Z</time>
+    <name>Maison</name>
+    <cmt>On est arrivé...</cmt>
+    <desc>On est arrivé...</desc>
+    <sym>Residence</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:Proximity>100</gpxx:Proximity>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>WPbugey</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:Proximity>100</wptx1:Proximity>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>WPbugey</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2016-08-09T21:03:53Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.951576931402087" lon="5.364410486072302">
+    <ele>256</ele>
+    <time>2017-02-13T21:56:10Z</time>
+    <name>Prendre à gauche sur Rue de la Poepe</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:10Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.955939963459969" lon="5.353923970833421">
+    <ele>250</ele>
+    <time>2017-02-13T21:56:56Z</time>
+    <name>Prendre à gauche sur Rue du Dépot</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:56Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.951865017414093" lon="5.361618977040052">
+    <ele>253</ele>
+    <time>2017-02-13T21:56:16Z</time>
+    <name>Prendre à gauche sur Rue Marcel Demia, Votre destination se trouvera sur la droite.</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:16Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.95084854401648" lon="5.364915328100324">
+    <time>2017-02-13T21:56:07Z</time>
+    <name>WP01</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:07Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.951521443203092" lon="5.364187275990844">
+    <time>2017-02-13T21:56:11Z</time>
+    <name>WP02</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:11Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.950854830443859" lon="5.361839169636369">
+    <time>2017-02-13T21:56:14Z</time>
+    <name>WP03</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:14Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.951961576938629" lon="5.361402304843068">
+    <time>2017-02-13T21:56:17Z</time>
+    <name>WP04</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:17Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.955891851335764" lon="5.353777958080173">
+    <time>2017-02-13T21:56:57Z</time>
+    <name>WP05</name>
+    <cmt>24 Rue Du Dépot
+Ambérieu-En-Bugey, Ain, FRA</cmt>
+    <desc>24 Rue Du Dépot
+Ambérieu-En-Bugey, Ain, FRA</desc>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+        <gpxx:Address>
+          <gpxx:StreetAddress>24 Rue Du Dépot</gpxx:StreetAddress>
+          <gpxx:City>Ambérieu-En-Bugey</gpxx:City>
+          <gpxx:State>Ain</gpxx:State>
+          <gpxx:Country>FRA</gpxx:Country>
+        </gpxx:Address>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+        <wptx1:Address>
+          <wptx1:StreetAddress>24 Rue Du Dépot</wptx1:StreetAddress>
+          <wptx1:City>Ambérieu-En-Bugey</wptx1:City>
+          <wptx1:State>Ain</wptx1:State>
+          <wptx1:Country>FRA</wptx1:Country>
+        </wptx1:Address>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:56:57Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.957748023793101" lon="5.351159786805511">
+    <time>2017-02-13T21:57:01Z</time>
+    <name>WP06</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:57:01Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="45.957977771759033" lon="5.350191593170166">
+    <time>2017-02-13T21:57:19Z</time>
+    <name>WP07</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>essaiRB</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+      <wptx1:WaypointExtension>
+        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+        <wptx1:Categories>
+          <wptx1:Category>essaiRB</wptx1:Category>
+        </wptx1:Categories>
+      </wptx1:WaypointExtension>
+      <ctx:CreationTimeExtension>
+        <ctx:CreationTime>2017-02-13T21:57:19Z</ctx:CreationTime>
+      </ctx:CreationTimeExtension>
+    </extensions>
+  </wpt>
+
+  <trk>
+    <name>Maison à WP07 002</name>
+    <extensions>
+      <gpxx:TrackExtension>
+        <gpxx:DisplayColor>DarkGray</gpxx:DisplayColor>
+      </gpxx:TrackExtension>
+    </extensions>
+    <trkseg>
+      <trkpt lat="45.94928489997983" lon="5.3690005838871">
+        <ele>273</ele>
+      </trkpt>
+      <trkpt lat="45.949499476701021" lon="5.368403373286128" />
+      <trkpt lat="45.949630737304688" lon="5.368216037750244" />
+      <trkpt lat="45.950145721435547" lon="5.36707878112793" />
+      <trkpt lat="45.950253009796143" lon="5.366714000701904" />
+      <trkpt lat="45.950446128845215" lon="5.366177558898926" />
+      <trkpt lat="45.950682163238525" lon="5.3658127784729" />
+      <trkpt lat="45.950896739959717" lon="5.365490913391113" />
+      <trkpt lat="45.950918197631836" lon="5.365405082702637" />
+      <trkpt lat="45.950896739959717" lon="5.365254878997803" />
+      <trkpt lat="45.950853824615479" lon="5.365126132965088" />
+      <trkpt lat="45.950789535418153" lon="5.364954471588135" />
+      <trkpt lat="45.950846616178751" lon="5.364909879863262" />
+      <trkpt lat="45.95156192779541" lon="5.364353740587831" />
+      <trkpt lat="45.951509959995747" lon="5.364194735884666" />
+      <trkpt lat="45.950767993927002" lon="5.361928939819336" />
+      <trkpt lat="45.950861368328333" lon="5.361856184899807" />
+      <trkpt lat="45.950861368328333" lon="5.361856184899807" />
+      <trkpt lat="45.950961112976074" lon="5.361778736114502" />
+      <trkpt lat="45.951519012451172" lon="5.36158561706543" />
+      <trkpt lat="45.951948165893555" lon="5.361628532409668" />
+      <trkpt lat="45.951960235834122" lon="5.36140188574791" />
+      <trkpt lat="45.951969623565674" lon="5.361220836639404" />
+      <trkpt lat="45.952334403991699" lon="5.36034107208252" />
+      <trkpt lat="45.952377319335938" lon="5.359911918640137" />
+      <trkpt lat="45.952377319335938" lon="5.359761714935303" />
+      <trkpt lat="45.952377319335938" lon="5.359590137377381" />
+      <trkpt lat="45.952312862500548" lon="5.35933256149292" />
+      <trkpt lat="45.952248573303223" lon="5.359032237902284" />
+      <trkpt lat="45.952248573303223" lon="5.358796119689941" />
+      <trkpt lat="45.952355861663818" lon="5.358495712280273" />
+      <trkpt lat="45.953428661450744" lon="5.35682201385498" />
+      <trkpt lat="45.953943729400635" lon="5.356028079986572" />
+      <trkpt lat="45.954329967498779" lon="5.355663299560547" />
+      <trkpt lat="45.955746173858643" lon="5.35409688949585" />
+      <trkpt lat="45.955939292907715" lon="5.353882312774658" />
+      <trkpt lat="45.955891935154796" lon="5.353778041899204" />
+      <trkpt lat="45.955617427825928" lon="5.353174209594727" />
+      <trkpt lat="45.955510139465332" lon="5.352938175201416" />
+      <trkpt lat="45.956475734710693" lon="5.352058410644531" />
+      <trkpt lat="45.957505702972412" lon="5.351328765973449" />
+      <trkpt lat="45.957527160644531" lon="5.351200103759766" />
+      <trkpt lat="45.957748107612133" lon="5.351159786805511" />
+      <trkpt lat="45.957999229431152" lon="5.351114273071289" />
+      <trkpt lat="45.958020687103271" lon="5.351414680480957" />
+      <trkpt lat="45.958042060956359" lon="5.351006984710693" />
+      <trkpt lat="45.958020687103271" lon="5.350556373596191" />
+      <trkpt lat="45.957977771759033" lon="5.350191593170166">
+        <time>2017-02-13T21:57:19Z</time>
+      </trkpt>
+      <trkpt lat="45.957977771759033" lon="5.350191593170166">
+        <time>2017-02-13T21:57:19Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+
+</gpx>
