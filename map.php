@@ -46,10 +46,13 @@ if(isset($_REQUEST['map_select'])) {
 ?>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="https://openlayers.org/en/v4.3.3/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.3.4/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.3.3/build/ol.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
     <script src="lib/jquery-2.1.3.js"></script>
 
   </head>
@@ -58,16 +61,22 @@ if(isset($_REQUEST['map_select'])) {
     <h2>My Map</h2>
     <div id="ol-map-big" class="ol-map-big" style="height:600px; width:600px;"></div>
     <div>
+
       <form class="form-inline">
-        <label>Forme géométrique</label>
+        <label>Dessin: Forme géométrique</label>
         <select id="type">
           <option value="LineString">Ligne  à main levée</option>
           <option value="Polygon">Polygone  à main levée</option>
           <option value="Circle">Cercle  à main levée</option>
           <option value="arrow">Flèche multipoints au clic</option>
-          <option value="None">Rien</option>
+          <option value="None">Revenir au curseur pour zoomer ou déplacer la carte</option>
         </select>
-    </form>
+      </form>
+
+      <button id="rotate-left" title="Rotate clockwise">↻</button>
+      <button id="rotate-right" title="Rotate counterclockwise">↺</button>
+
+      <a id="export-png" class="btn btn-default"><i class="fa fa-download"></i> télécharger au format PNG</a>
 
     <script type="text/javascript">
 
@@ -234,6 +243,7 @@ if(isset($_REQUEST['map_select'])) {
             source: sourceDessin
           });
 
+          // style pour les dessins des fleches
           var styleFunction = function(feature) {
             var geometry = feature.getGeometry();
             var styles = [
@@ -265,33 +275,52 @@ if(isset($_REQUEST['map_select'])) {
             return styles;
           };
 
+          // le verctor fleches
           var sourceArrow = new ol.source.Vector();
           var vectorArrow = new ol.layer.Vector({
             source: sourceArrow,
             style: styleFunction
           });
 
+          //la vue est centrée sur le 1er WP
+          var center = ol.proj.transform([parseFloat(points[0]), parseFloat(points[1])], 'EPSG:4326', 'EPSG:3857');
+          var view = new ol.View({
+                  center: center,
+                  zoom: 17
+                });
 
 
 
-
+          console.log(center);
           // Contact map
           var map = new ol.Map({
               target: 'ol-map-big',
               layers: [
                 new ol.layer.Tile({
-                  source: new ol.source.OSM()
+                  source: new ol.source.OSM({
+                    url: 'https://api.mapbox.com/styles/v1/cyclope001/cj821rt6981me2st3j92w8imq/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3ljbG9wZTAwMSIsImEiOiJjajgyMXFlcTcwM2ZnMnhzNHltcWFsZ2s3In0.W8N3B5aqWmBOSyD6o13z0A'
+                  })
                 }),  vectorLineLayer, vectorLayer, vectorLayerWP, vectorDessin, vectorArrow
               ],
-              view: new ol.View({
-                center: ol.proj.transform([parseFloat(points[0]), parseFloat(points[1])], 'EPSG:4326', 'EPSG:3857'),
-                //center: a,
-                zoom: 14
-              })
+              view: view
           });
 
 
+          function onClick(id, callback) {
+            document.getElementById(id).addEventListener('click', callback);
+          }
 
+          onClick('rotate-left', function() {
+            view.animate({
+              rotation: view.getRotation() + Math.PI / 8
+            });
+          });
+
+          onClick('rotate-right', function() {
+            view.animate({
+              rotation: view.getRotation() - Math.PI / 8
+            });
+          });
 
           var typeSelect = document.getElementById('type');
 
@@ -330,6 +359,20 @@ if(isset($_REQUEST['map_select'])) {
           };
 
           addInteraction();
+
+          document.getElementById('export-png').addEventListener('click', function() {
+            map.once('postcompose', function(event) {
+              var canvas = event.context.canvas;
+              if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(canvas.msToBlob(), 'map.png');
+              } else {
+                canvas.toBlob(function(blob) {
+                  saveAs(blob, 'map.png');
+                });
+              }
+            });
+            map.renderSync();
+          });
 
 
      </script>
