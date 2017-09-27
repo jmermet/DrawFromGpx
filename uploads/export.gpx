@@ -60,7 +60,7 @@
 
   <wpt lat="43.635077476501465" lon="5.766212940216064">
     <time>2017-09-21T21:12:39Z</time>
-    <name>D 3 et Chemin</name>
+    <name>D 3 et  Chemin</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -84,7 +84,7 @@
 
   <wpt lat="43.639090061187744" lon="5.762951374053955">
     <time>2017-09-21T21:12:52Z</time>
-    <name>D 3 et Chemin 1</name>
+    <name>D 3 et  Chemin 1</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -108,7 +108,7 @@
 
   <wpt lat="43.639926910400391" lon="5.762608051300049">
     <time>2017-09-21T21:12:49Z</time>
-    <name>D 3 et Voie d Acces</name>
+    <name>D 3 et  Voie d Acces</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -348,7 +348,7 @@
 
   <wpt lat="43.61147403717041" lon="5.715508460998535">
     <time>2017-09-21T21:11:15Z</time>
-    <name>Route de Jouques et Route</name>
+    <name>Route de Jouques et  Route</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -372,7 +372,7 @@
 
   <wpt lat="43.611559867858887" lon="5.717332363128662">
     <time>2017-09-21T21:11:13Z</time>
-    <name>Route de Jouques et Rue residentielle</name>
+    <name>Route de Jouques et  Rue residentielle</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -900,7 +900,7 @@
 
   <wpt lat="43.623168468475342" lon="5.73211669921875">
     <time>2017-09-21T21:12:04Z</time>
-    <name>Route et Chemin 1</name>
+    <name>Route  et  Chemin 1</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -924,7 +924,7 @@
 
   <wpt lat="43.621108531951904" lon="5.74434757232666">
     <time>2017-09-21T21:12:05Z</time>
-    <name>Route et Chemin 2</name>
+    <name>Route  et  Chemin 2</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -948,7 +948,7 @@
 
   <wpt lat="43.62846851348877" lon="5.745420455932617">
     <time>2017-09-21T21:12:07Z</time>
-    <name>Route et Chemin 3</name>
+    <name>Route  et  Chemin 3</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -972,7 +972,7 @@
 
   <wpt lat="43.637974262237549" lon="5.774431228637695">
     <time>2017-09-21T21:13:10Z</time>
-    <name>Route et Chemin 4</name>
+    <name>Route  et  Chemin 4</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>
@@ -996,7 +996,7 @@
 
   <wpt lat="43.602676391601562" lon="5.719971656799316">
     <time>2017-09-21T21:10:59Z</time>
-    <name>Rue residentielle et Chemin</name>
+    <name>Rue residentielle  et  Chemin</name>
     <sym>Flag, Blue</sym>
     <type>user</type>
     <extensions>

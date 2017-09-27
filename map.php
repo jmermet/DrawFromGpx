@@ -1,4 +1,3 @@
-
 <?php
 if(isset($_REQUEST['map_select'])) {
 
@@ -11,24 +10,27 @@ if(isset($_REQUEST['map_select'])) {
         $rutes1 = $rutes1[0]->getTrackpt();
       }
 
-
       $ListerealWP = '';
+      $ListeNameWP = '';
+      $tabNameWP = array();
       $listeWP= $gpxMain->getWaypoint();
 
       foreach ($listeWP as $objetWP) {
         $lat = (string)$objetWP->getLat();
         $lon = (string)$objetWP->getLon();
+        $name = (string)$objetWP->getName();
+        //$name = convertNameWP($name);
+        $tabNameWP[] = $name;
         if (strlen($ListerealWP) == 0) {
             $ListerealWP = $lon.','.$lat;
+            $ListeNameWP = $name;
         } else {
             $ListerealWP = $ListerealWP.','.$lon.','.$lat;
+            $ListeNameWP = $ListeNameWP. ',' .$name;
         }
 
       }
-      //var_dump($ListerealWP);
-
-
-
+      //var_dump($tabNameWP);
 
     $points = '';
     foreach ($rutes1 as $wp) {
@@ -40,9 +42,7 @@ if(isset($_REQUEST['map_select'])) {
             $points = $points.','.$lon.','.$lat;
         }
     }
-
   }
-
 ?>
 <html lang="en">
   <head>
@@ -60,16 +60,18 @@ if(isset($_REQUEST['map_select'])) {
 
     <h2>My Map</h2>
     <div id="ol-map-big" class="ol-map-big" style="height:600px; width:600px;"></div>
+
+    <div id="info" class="has-warning">pas de sélection</div>
     <div>
 
       <form class="form-inline">
         <label>Dessin: Forme géométrique</label>
         <select id="type">
+          <option value="arrow">Flèche multipoints au clic</option>
           <option value="LineString">Ligne  à main levée</option>
           <option value="Polygon">Polygone  à main levée</option>
           <option value="Circle">Cercle  à main levée</option>
-          <option value="arrow">Flèche multipoints au clic</option>
-          <option value="None">Revenir au curseur pour zoomer ou déplacer la carte</option>
+          <option value="None">Revenir au curseur pour zoomer, sélectionner un WP ou déplacer la carte</option>
         </select>
       </form>
 
@@ -81,10 +83,11 @@ if(isset($_REQUEST['map_select'])) {
     <script type="text/javascript">
 
           var realWP = '<?=$ListerealWP;?>';
+          var nameWP = '<?=$ListeNameWP;?>';
           var points = "<?=$points;?>";
-                    //console.log(points);
           points = points.split(',');
           realWP = realWP.split(',');
+          nameWP = nameWP.split(',');
           var j = 0;
           var iconFeature = [];
           var wpFeature = [];
@@ -163,7 +166,7 @@ if(isset($_REQUEST['map_select'])) {
           for (x=0; x < realWP.length; x=x+2) {
             wpFeature[z]  = new ol.Feature({
               geometry: new ol.geom.Point(ol.proj.transform([parseFloat(realWP[x]), parseFloat(realWP[x+1])], 'EPSG:4326', 'EPSG:3857')),
-              name: 'Null Island',
+              name: nameWP[z],
               population: 4000,
               rainfall: 500
             });
@@ -180,23 +183,13 @@ if(isset($_REQUEST['map_select'])) {
             z++;
           }
 
-            // wpFeature[x] = new ol.Feature({
-            //     geometry: new ol.geom.Point(ol.proj.transform([parseFloat(5.8), parseFloat(4502)], 'EPSG:4326', 'EPSG:3857')),
-            //     name: 'WP'
-            // });
+
 
 
 
           var vectorLinesSource = new ol.source.Vector({
               //create empty vector
           });
-
-
-            //console.log(linesFeature);
-
-            //var fea=new ol.Feature.Vector(linesFeature[0], {}, styleLine);
-
-
 
           var vectorLinesSource = new ol.source.Vector({
             features: linesFeature
@@ -290,8 +283,6 @@ if(isset($_REQUEST['map_select'])) {
                 });
 
 
-
-          console.log(center);
           // Contact map
           var map = new ol.Map({
               target: 'ol-map-big',
@@ -305,6 +296,46 @@ if(isset($_REQUEST['map_select'])) {
               view: view
           });
 
+          // a normal select interaction to handle click
+          var select = new ol.interaction.Select();
+          map.addInteraction(select);
+
+           var selectedFeatures = select.getFeatures();
+           // a DragBox interaction used to select features by drawing boxes
+          var dragBox = new ol.interaction.DragBox({
+            condition: ol.events.condition.platformModifierKeyOnly
+          });
+
+          map.addInteraction(dragBox);
+
+          dragBox.on('boxend', function() {
+            // features that intersect the box are added to the collection of
+            // selected features
+            var extent = dragBox.getGeometry().getExtent();
+            vectorSource.forEachFeatureIntersectingExtent(extent, function(feature) {
+              selectedFeatures.push(feature);
+            });
+          });
+
+    // clear selection when drawing a new box and when clicking on the map
+          dragBox.on('boxstart', function() {
+            selectedFeatures.clear();
+          });
+
+          var infoBox = document.getElementById('info');
+
+          selectionWP = '';
+          selectedFeatures.on(['add', 'remove'], function() {
+            var names = selectedFeatures.getArray().map(function(feature) {
+              selectionWP = feature.get('name');
+              return feature.get('name');
+            });
+            if (names.length > 0) {
+              infoBox.innerHTML = names.join(', ');
+            } else {
+              infoBox.innerHTML = 'Pas de sélection';
+            }
+          });
 
           function onClick(id, callback) {
             document.getElementById(id).addEventListener('click', callback);
@@ -360,14 +391,16 @@ if(isset($_REQUEST['map_select'])) {
 
           addInteraction();
 
+          // on clic pour export en donnant comme nom le WP selectionné
           document.getElementById('export-png').addEventListener('click', function() {
             map.once('postcompose', function(event) {
               var canvas = event.context.canvas;
+              if (selectionWP == '') { selectionWP = 'map' };
               if (navigator.msSaveBlob) {
-                navigator.msSaveBlob(canvas.msToBlob(), 'map.png');
+                navigator.msSaveBlob(canvas.msToBlob(), selectionWP +'.png');
               } else {
                 canvas.toBlob(function(blob) {
-                  saveAs(blob, 'map.png');
+                  saveAs(blob, selectionWP +'.png');
                 });
               }
             });
@@ -394,7 +427,7 @@ array_shift($mapas);
         echo "<option value='uploads/".$mapas[$i]."'>".$mapas[$i]."</option>";
         } ?>
     </select>
-    <button type="submit">Cambiar</button>
+    <button type="submit">Charger le GPX sur la carte</button>
 
     </form>
 
