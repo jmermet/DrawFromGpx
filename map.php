@@ -67,11 +67,12 @@ if(isset($_REQUEST['map_select'])) {
       <form class="form-inline">
         <label>Dessin: Forme géométrique</label>
         <select id="type">
+          <option value="None">Pas d'outil sélectionné: zoomer, sélectionner un WP ou déplacer la carte</option>
           <option value="arrow">Flèche multipoints au clic</option>
           <option value="LineString">Ligne  à main levée</option>
           <option value="Polygon">Polygone  à main levée</option>
           <option value="Circle">Cercle  à main levée</option>
-          <option value="None">Revenir au curseur pour zoomer, sélectionner un WP ou déplacer la carte</option>
+
         </select>
       </form>
 
@@ -99,66 +100,70 @@ if(isset($_REQUEST['map_select'])) {
           var wp_aux = new Array();
 
 
-
-
-
-
-
-          //crea puntos
+          //creation des  points
           for (i=0; i < points.length; i=i+2) {
             points2[j] = new ol.geom.Point(ol.proj.transform([parseFloat(points[i]), parseFloat(points[i+1])], 'EPSG:4326', 'EPSG:3857'));
             point_aux[j] =  new ol.geom.Point([parseFloat(points[i]), parseFloat(points[i+1])]);
             iconFeature[j] = new ol.Feature({
                 geometry: points2[j],
                 name: 'Null Point',
-                population: 4000,
-                rainfall: 500
+                population: 4,
+                rainfall: 5
             });
 
-            //DA ESTILO A LOS PUNTOS
+            //style des points
             var iconStyle = new ol.style.Style({
                 image: new ol.style.Circle({
                   radius: 2,
-                  fill: new ol.style.Fill({color: '#ff6600', opacity: 0.5}),
+                  fill: new ol.style.Fill({color: '#ff6600', opacity: 0.5}),  // ff6600 orange
                   stroke: new ol.style.Stroke({color: '#ffffff', width: 1, opacity: 0.5})
                 })
             });
 
-            //AÑADE EL ESTILO A LOS PUNTOS
             iconFeature[j].setStyle(iconStyle);
-            //iconFeature.push(iconFeature1);
 
             j++;
           }
 
+          var styleSegmentBleu = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: '#0038ff',   // 2fff00 vert #0038ff bleu
+              width: 2
+            })
+          });
+          var styleSegmentRouge = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: '#ff0000',   // 2fff00 vert #0038ff bleu
+              width: 3
+            })
+          });
 
 
-          //LINEAS
-          j=0;
-          var style = {
-            strokeColor: '#EF2831',
-            strokeOpacity: 1,
-            strokeWidth: 8
-          };
-          var linesFeature = Array();
 
-          for (i=0; i < points2.length; i=i+1) {
+          //creation des lignes
+            j=0;
+            var styleLigne = {
+              strokeColor: '#EF2831', //rouge
+              strokeOpacity: 1,
+              strokeWidth: 8
+            };
+            var linesFeature = Array();
 
-            //console.log(points2[j].getCoordinates());
-            a = points2[i].getCoordinates();
+            for (i=0; i < points2.length; i=i+1) {
 
-            if((i+1)<points2.length) {
-                b = points2[i+1].getCoordinates();
-            }
+              a = points2[i].getCoordinates();
 
-            linesFeature[j] = new ol.geom.LineString([a, b]);
+              if((i+1)<points2.length) {
+                  b = points2[i+1].getCoordinates();
+                  linesFeature[j] = new ol.geom.LineString([a, b]);
+              }
 
-            linesFeature[j] = new ol.Feature(linesFeature[j], null, style);
-
+              linesFeature[j] = new ol.Feature(linesFeature[j], null, styleSegmentBleu);
+              linesFeature[j].setStyle(styleSegmentBleu);
 
               j++;
 
-          }
+            }
 
 
           //creation real WP
@@ -215,7 +220,7 @@ if(isset($_REQUEST['map_select'])) {
             source: vectorSourceWP,
             style: new ol.style.Style({
               fill: new ol.style.Fill({
-                color: 'rgba(255, 255, 255, 0.2)'
+                color: 'rgba(255, 255, 255, 2.2)'
               }),
               stroke: new ol.style.Stroke({
                 color: '#ffcc33',
@@ -230,16 +235,32 @@ if(isset($_REQUEST['map_select'])) {
             })
           });
 
+          //dessin à main levée
           var sourceDessin = new ol.source.Vector({wrapX: false});
 
           var vectorDessin = new ol.layer.Vector({
-            source: sourceDessin
+            source: sourceDessin,
+            style: new ol.style.Style({
+              fill: new ol.style.Fill({
+                color: 'rgba(255, 255, 255, 0.2)'
+              }),
+              stroke: new ol.style.Stroke({
+                color: '#ff0000',
+                width: 4
+              }),
+              image: new ol.style.Circle({
+                radius: 7,
+                fill: new ol.style.Fill({
+                  color: '#ffcc33'
+                })
+              })
+            })
           });
 
           // style pour les dessins des fleches
           var styleFunction = function(feature) {
             var geometry = feature.getGeometry();
-            var styles = [
+            var stylesFleche = [
               // linestring
               new ol.style.Style({
                 stroke: new ol.style.Stroke({
@@ -254,7 +275,7 @@ if(isset($_REQUEST['map_select'])) {
               var dy = end[1] - start[1];
               var rotation = Math.atan2(dy, dx);
               // arrows
-              styles.push(new ol.style.Style({
+              stylesFleche.push(new ol.style.Style({
                 geometry: new ol.geom.Point(end),
                 image: new ol.style.Icon({
                   src: 'img/fleche-rouge.png',
@@ -263,12 +284,13 @@ if(isset($_REQUEST['map_select'])) {
                   rotation: -rotation
                 })
               }));
-            });
 
-            return styles;
+            });
+            map.removeInteraction(select); // on desactive la selection au clic pour eviter la selection de la fleche lors de la fin du dessin de la fleche
+            return stylesFleche;
           };
 
-          // le verctor fleches
+          // le vector fleches
           var sourceArrow = new ol.source.Vector();
           var vectorArrow = new ol.layer.Vector({
             source: sourceArrow,
@@ -300,27 +322,9 @@ if(isset($_REQUEST['map_select'])) {
           var select = new ol.interaction.Select();
           map.addInteraction(select);
 
+
            var selectedFeatures = select.getFeatures();
-           // a DragBox interaction used to select features by drawing boxes
-          var dragBox = new ol.interaction.DragBox({
-            condition: ol.events.condition.platformModifierKeyOnly
-          });
 
-          map.addInteraction(dragBox);
-
-          dragBox.on('boxend', function() {
-            // features that intersect the box are added to the collection of
-            // selected features
-            var extent = dragBox.getGeometry().getExtent();
-            vectorSource.forEachFeatureIntersectingExtent(extent, function(feature) {
-              selectedFeatures.push(feature);
-            });
-          });
-
-    // clear selection when drawing a new box and when clicking on the map
-          dragBox.on('boxstart', function() {
-            selectedFeatures.clear();
-          });
 
           var infoBox = document.getElementById('info');
 
@@ -332,6 +336,9 @@ if(isset($_REQUEST['map_select'])) {
             });
             if (names.length > 0) {
               infoBox.innerHTML = names.join(', ');
+              for(i=0;i<3;i++) {
+                $(infoBox).fadeTo('slow', 0.5).fadeTo('slow', 1.0).css('color','#FF0000');;
+              }
             } else {
               infoBox.innerHTML = 'Pas de sélection';
             }
@@ -355,13 +362,16 @@ if(isset($_REQUEST['map_select'])) {
 
           var typeSelect = document.getElementById('type');
 
+
+
           var draw; // global so we can remove it later
-          function addInteraction() {
+          function selectInteraction() {
             var value = typeSelect.value;
             if (value !== 'None' && value !== 'arrow') {
               draw = new ol.interaction.Draw({
                 source: sourceDessin,
                 type: /** @type {ol.geom.GeometryType} */ (typeSelect.value),
+                style: styleSegmentRouge,
                 freehand: true
               });
 
@@ -369,11 +379,12 @@ if(isset($_REQUEST['map_select'])) {
             if (value == 'arrow'){
                 draw = new ol.interaction.Draw({
                   source: sourceArrow,
-                 type: /** @type {ol.geom.GeometryType} */ ('LineString')
+                 type: /** @type {ol.geom.GeometryType} */ ('LineString'),
                 });
             }
             if (value == 'None'){
                 map.removeInteraction(draw);
+                map.addInteraction(select); // on active la selection au clic sur la carte
             }  else {
               map.addInteraction(draw);
             }
@@ -386,10 +397,10 @@ if(isset($_REQUEST['map_select'])) {
            */
           typeSelect.onchange = function() {
             map.removeInteraction(draw);
-            addInteraction();
+            selectInteraction();
           };
 
-          addInteraction();
+          selectInteraction();
 
           // on clic pour export en donnant comme nom le WP selectionné
           document.getElementById('export-png').addEventListener('click', function() {
@@ -422,9 +433,12 @@ array_shift($mapas);
     <form action="tests.php">
     <select name="map_select">
       <?php
-      print_r($mapas);
+      //print_r($mapas);
+
       for($i = 0; $i < count($mapas); $i++) {
-        echo "<option value='uploads/".$mapas[$i]."'>".$mapas[$i]."</option>";
+        $select = '';
+        if ($_REQUEST['map_select'] == "uploads/".$mapas[$i]) $select='selected=selected';
+        echo "<option ".$select." value='uploads/".$mapas[$i]."'>".$mapas[$i]."</option>";
         } ?>
     </select>
     <button type="submit">Charger le GPX sur la carte</button>
