@@ -25,7 +25,8 @@ if ($uploadOk == 0 || $_FILES["fileToUpload"]["error"] != 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded. <a href='tests.php'> tests.php</a>";
+        echo "Le fichier ". basename( $_FILES["fileToUpload"]["name"]). " a bien été chargé.";
+        echo " <a href='index.php?map_select=uploads/". urlencode(basename( $_FILES["fileToUpload"]["name"])). "'> Le voir sur la carte </a>";
     } else {
         echo "Sorry, there was an error uploading your file.";
     }

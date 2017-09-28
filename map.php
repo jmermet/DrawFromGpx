@@ -1,6 +1,6 @@
 <?php
-if(isset($_REQUEST['map_select'])) {
 
+if(isset($_REQUEST['map_select'])) {
     $rutes1 = $gpxMain->getRoute();
       if($rutes1 <> null) {
          $rutes1 = $rutes1[0]->getRoutept();
@@ -30,7 +30,7 @@ if(isset($_REQUEST['map_select'])) {
         }
 
       }
-      //var_dump($tabNameWP);
+      //var_dump($tabNameWP); exit;
 
     $points = '';
     foreach ($rutes1 as $wp) {
@@ -58,7 +58,34 @@ if(isset($_REQUEST['map_select'])) {
   </head>
   <body>
 
-    <h2>My Map</h2>
+    <h2>Dessin sur carte avec WP et traces pour capture</h2>
+
+    <?php
+    $mapas = scandir("uploads");
+    array_shift($mapas);
+    array_shift($mapas);
+    array_shift($mapas);
+
+    ?>
+
+    <form action="index.php">
+    <select name="map_select">
+      <?php
+      //print_r($mapas);
+
+      for($i = 0; $i < count($mapas); $i++) {
+        $select = '';
+        if ($_REQUEST['map_select'] == "uploads/".$mapas[$i]) $select='selected=selected';
+        echo "<option ".$select." value='uploads/".$mapas[$i]."'>".$mapas[$i]."</option>";
+        } ?>
+    </select>
+    <button type="submit">Charger le GPX sur la carte</button>
+
+    </form>
+
+    <div> <a href="upload.php" title="charger un fichier GPX de traces et de WayPoint"> Charger un nouveau fichier</a>
+
+
     <div id="ol-map-big" class="ol-map-big" style="height:600px; width:600px;"></div>
 
     <div id="info" class="has-warning">pas de sélection</div>
@@ -79,7 +106,7 @@ if(isset($_REQUEST['map_select'])) {
       <button id="rotate-left" title="Rotate clockwise">↻</button>
       <button id="rotate-right" title="Rotate counterclockwise">↺</button>
 
-      <a id="export-png" class="btn btn-default"><i class="fa fa-download"></i> télécharger au format PNG</a>
+      <a id="export-png" class="btn btn-default"><i class="fa fa-download"></i> Capture <span id="nomWP"></span> au format PNG</a>
 
     <script type="text/javascript">
 
@@ -336,6 +363,7 @@ if(isset($_REQUEST['map_select'])) {
             });
             if (names.length > 0) {
               infoBox.innerHTML = names.join(', ');
+              nomWP.innerHTML = "'" + names.join(', ') + "'";
               for(i=0;i<3;i++) {
                 $(infoBox).fadeTo('slow', 0.5).fadeTo('slow', 1.0).css('color','#FF0000');;
               }
@@ -422,28 +450,7 @@ if(isset($_REQUEST['map_select'])) {
      </script>
 
 
- <?php
-$mapas = scandir("uploads");
-array_shift($mapas);
-array_shift($mapas);
-array_shift($mapas);
 
-?>
-
-    <form action="tests.php">
-    <select name="map_select">
-      <?php
-      //print_r($mapas);
-
-      for($i = 0; $i < count($mapas); $i++) {
-        $select = '';
-        if ($_REQUEST['map_select'] == "uploads/".$mapas[$i]) $select='selected=selected';
-        echo "<option ".$select." value='uploads/".$mapas[$i]."'>".$mapas[$i]."</option>";
-        } ?>
-    </select>
-    <button type="submit">Charger le GPX sur la carte</button>
-
-    </form>
 
 
     </div>
