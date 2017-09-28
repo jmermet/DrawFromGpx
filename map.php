@@ -44,8 +44,10 @@ if(isset($_REQUEST['map_select'])) {
     }
   }
 ?>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
   <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://openlayers.org/en/v4.3.4/css/ol.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
@@ -53,7 +55,7 @@ if(isset($_REQUEST['map_select'])) {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.3.3/build/ol.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-    <script src="lib/jquery-2.1.3.js"></script>
+    <script src="js/jquery-2.1.3.js"></script>
 
   </head>
   <body>
@@ -70,6 +72,7 @@ if(isset($_REQUEST['map_select'])) {
 
     <form action="index.php">
     <select name="map_select">
+      <option value="">Choisir le fichier GPX</option>
       <?php
       //print_r($mapas);
 
