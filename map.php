@@ -1,5 +1,7 @@
 <?php
-
+/* en php on récupère les points de la trace (points)
+les wp (ListerealWP) les noms de ces WP à partir du fichier GPX chargé
+*/
 if(isset($_REQUEST['map_select'])) {
     $rutes1 = $gpxMain->getRoute();
       if($rutes1 <> null) {
@@ -53,7 +55,7 @@ if(isset($_REQUEST['map_select'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script src="https://openlayers.org/en/v4.3.3/build/ol.js"></script>
+    <script src="https://openlayers.org/en/v4.3.3/build/ol-debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
     <script src="js/jquery-2.1.3.js"></script>
 
@@ -92,6 +94,7 @@ if(isset($_REQUEST['map_select'])) {
     <div id="ol-map-big" class="ol-map-big" style="height:600px; width:600px;"></div>
 
     <div id="info" class="has-warning">pas de sélection</div>
+    <div id="del" class="has-warning"></div>
     <div>
 
       <form class="form-inline">
@@ -233,12 +236,12 @@ if(isset($_REQUEST['map_select'])) {
           var vectorLineLayer = new ol.layer.Vector({
             source: vectorLinesSource
           });
-          var vectorSource = new ol.source.Vector({
+          var vectorIconSource = new ol.source.Vector({
             features: iconFeature
           });
 
-          var vectorLayer = new ol.layer.Vector({
-            source: vectorSource
+          var vectorIconLayer = new ol.layer.Vector({
+            source: vectorIconSource
           });
 
 
@@ -265,27 +268,7 @@ if(isset($_REQUEST['map_select'])) {
             })
           });
 
-          //dessin à main levée
-          var sourceDessin = new ol.source.Vector({wrapX: false});
 
-          var vectorDessin = new ol.layer.Vector({
-            source: sourceDessin,
-            style: new ol.style.Style({
-              fill: new ol.style.Fill({
-                color: 'rgba(255, 255, 255, 0.2)'
-              }),
-              stroke: new ol.style.Stroke({
-                color: '#ff0000',
-                width: 4
-              }),
-              image: new ol.style.Circle({
-                radius: 7,
-                fill: new ol.style.Fill({
-                  color: '#ffcc33'
-                })
-              })
-            })
-          });
 
           // style pour les dessins des fleches
           var styleFunction = function(feature) {
@@ -335,7 +318,9 @@ if(isset($_REQUEST['map_select'])) {
                 });
 
 
-          // Contact map
+          /* Création de la map source OSM avec fond Mapbox satellite
+          On y superpose les lignes, les points, les WP, les dessins, les flèches
+          */
           var map = new ol.Map({
               target: 'ol-map-big',
               layers: [
@@ -343,7 +328,7 @@ if(isset($_REQUEST['map_select'])) {
                   source: new ol.source.OSM({
                     url: 'https://api.mapbox.com/styles/v1/cyclope001/cj821rt6981me2st3j92w8imq/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3ljbG9wZTAwMSIsImEiOiJjajgyMXFlcTcwM2ZnMnhzNHltcWFsZ2s3In0.W8N3B5aqWmBOSyD6o13z0A'
                   })
-                }),  vectorLineLayer, vectorLayer, vectorLayerWP, vectorDessin, vectorArrow
+                }),  vectorLineLayer, vectorIconLayer, vectorLayerWP,  vectorArrow
               ],
               view: view
           });
@@ -357,6 +342,7 @@ if(isset($_REQUEST['map_select'])) {
 
 
           var infoBox = document.getElementById('info');
+          var delBox = document.getElementById('del');
 
           selectionWP = '';
           selectedFeatures.on(['add', 'remove'], function() {
@@ -365,6 +351,7 @@ if(isset($_REQUEST['map_select'])) {
               return feature.get('name');
             });
             if (names.length > 0) {
+              delBox.innerHTML = '<a href="#">suppression des lignes et flèches</a>';
               infoBox.innerHTML = names.join(', ');
               nomWP.innerHTML = "'" + names.join(', ') + "'";
               for(i=0;i<3;i++) {
@@ -378,6 +365,10 @@ if(isset($_REQUEST['map_select'])) {
           function onClick(id, callback) {
             document.getElementById(id).addEventListener('click', callback);
           }
+
+
+
+
 
           onClick('rotate-left', function() {
             view.animate({
@@ -393,18 +384,43 @@ if(isset($_REQUEST['map_select'])) {
 
           var typeSelect = document.getElementById('type');
 
-
-
           var draw; // global so we can remove it later
+          var vectorDessin;
           function selectInteraction() {
             var value = typeSelect.value;
+            console.log(value);
             if (value !== 'None' && value !== 'arrow') {
+                            //dessin à main levée
+              var sourceDessin = new ol.source.Vector({wrapX: false});
+
+              vectorDessin = new ol.layer.Vector({
+                source: sourceDessin,
+                style: new ol.style.Style({
+                  fill: new ol.style.Fill({
+                    color: 'rgba(255, 255, 255, 0.2)'
+                  }),
+                  stroke: new ol.style.Stroke({
+                    color: '#ff0000',
+                    width: 4
+                  }),
+                  image: new ol.style.Circle({
+                    radius: 7,
+                    fill: new ol.style.Fill({
+                      color: '#ffcc33'
+                    })
+                  })
+                })
+              });
               draw = new ol.interaction.Draw({
                 source: sourceDessin,
                 type: /** @type {ol.geom.GeometryType} */ (typeSelect.value),
                 style: styleSegmentRouge,
                 freehand: true
               });
+
+              map.addInteraction(draw);
+              map.addLayer(vectorDessin);
+              console.log(vectorDessin);
 
             }
             if (value == 'arrow'){
@@ -416,11 +432,18 @@ if(isset($_REQUEST['map_select'])) {
             if (value == 'None'){
                 map.removeInteraction(draw);
                 map.addInteraction(select); // on active la selection au clic sur la carte
-            }  else {
-              map.addInteraction(draw);
             }
 
           }
+
+          document.getElementById('del').onclick = function() {
+            console.log('del');
+             var sourceNull= '';
+            vectorDessin.setSource(sourceNull);
+            map.removeInteraction();
+            map.addLayer(vectorDessin);
+            //map.addInteraction(select); // on active la selection au clic sur la carte
+          };
 
 
           /**
@@ -432,6 +455,8 @@ if(isset($_REQUEST['map_select'])) {
           };
 
           selectInteraction();
+
+
 
           // on clic pour export en donnant comme nom le WP selectionné
           document.getElementById('export-png').addEventListener('click', function() {
